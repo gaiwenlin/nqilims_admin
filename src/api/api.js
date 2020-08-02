@@ -316,3 +316,34 @@ export const stopJob = params => {
 export const reCovery = params => {
     return axios.get(`${base}/api/TasksQz/ReCovery`, {params: params});
 };
+
+// 此处为监督抽查业务受理接口
+// 获取样本详情
+export const getPmPlanSubByCode = params => {
+  return axios.post(`${base}/api/PM_PLAN_SUB/GetPmPlanSubByCode?iCodeNum=${params.iCodeNum}`);
+};
+// 获取样本详情
+export const getPmInsPectByCode = params => {
+  return axios.post(`${base}/api/PM_INSPECT/GetPmInsPectByCode?iCodeNum=${params.iCodeNum}`);
+};
+
+// 获取任务表
+export const getPmPlanById = id => {
+  return axios.get(`${base}/api/PM_PLAN/Get/${id}`);
+};
+// 获取受检单位信息
+export const getPmCaryById = id => {
+  return axios.get(`${base}/api/PM_CARY/Get/${id}`);
+};
+// 获取生产单位信息
+export const getPmProductById = id => {
+  return axios.get(`${base}/api/PM_PRODUCE_UNIT/Get/${id}`);
+};
+// 获取抽样单位信息
+export const getPmExecUintById = id => {
+  return axios.get(`${base}/api/PM_EXEC_UINT/Get/${id}`);
+};
+// 获取网店信息
+export const getPmEcPlatformById = id => {
+  return axios.get(`${base}/api/PM_EC_PLATFORM/Get/${id}`);
+};

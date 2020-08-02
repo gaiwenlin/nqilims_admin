@@ -64,11 +64,11 @@ const router = new Router({
         {
             path: '/',
             component: Welcome,
-            name: 'QQ欢迎页',
+            name: 'jain',
             iconCls: 'fa-qq',//图标样式class
             // hidden: true,
             meta: {
-                title: 'QQ欢迎页',
+                title: '监督抽查业务受理',
                 requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
             }
         },

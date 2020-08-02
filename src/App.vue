@@ -476,8 +476,8 @@
 
 </script>
 
-<style lang="css">
-    @import "./style/home.css";
+<style lang="scss">
+    @import "./style/home.scss";
 
     .el-menu-vertical-demo {
         /*width: 230px;*/
