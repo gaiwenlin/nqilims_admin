@@ -4,12 +4,12 @@
       <el-card class="mb20" style="position: sticky;top: 0px;background: #fff;z-index: 1999">
         <div class="pl20 pr20 clearfix">
           <span>样品编号：</span>
-          <el-input class="w300 mr30" placeholder="请输入样品编号" v-model="queryParams.iCodeNum">
-            <el-button :disabled="loading" :loading="loading" slot="append" icon="el-icon-search" @click="getPmInsPectByCode"></el-button>
+          <el-input class="w400 mr30" placeholder="请输入样品编号" v-model="queryParams.iCodeNum">
+            <el-button :disabled="loading" :loading="loading" slot="append" icon="el-icon-search" @click="getPmInsPectByCode">从省平台同步</el-button>
           </el-input>
-          <el-button type="warning" class="fr">保存</el-button>
-          <el-button type="success" class="fr mr10">新建</el-button>
-          <el-button type="primary" class="fr" @click="syncFromPPlatform">从省平台同步</el-button>
+          <el-button type="warning" class="fr" @click="onSave">保存</el-button>
+          <!-- <el-button type="success" class="fr mr10">新建</el-button> -->
+          <!-- <el-button type="primary" class="fr" @click="syncFromPPlatform">从省平台同步</el-button> -->
         </div>
       </el-card>
       
@@ -20,32 +20,39 @@
         <el-row :gutter="10" v-loading="loading">
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="委托单位">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="formData.SupervisePlanInfo['TASKSOURCE']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="计划编号">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="formData.SupervisePlanInfo['PLANNO']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="任务类别">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="formData.SupervisePlanInfo['TASKCLASS']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="计划文件号">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="formData.SupervisePlanInfo['SUPERVISIONPLANNO']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="委托单位地址">
-              <el-input v-model="formData.name"></el-input>
+              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="抽样领域">
-              <el-input v-model="formData.name"></el-input>
+              <el-select v-model="formData.PmPlanSubInfo['CHECK_TYPE']" placeholder="请选择">
+                <el-option
+                  v-for="(value, key) in samplingAreaOptions"
+                  :key="key"
+                  :label="value"
+                  :value="key">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -57,37 +64,37 @@
         <el-row :gutter="10" v-loading="loading">
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="主检部门">
-              <el-input v-model="formData.name"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="受理单号">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="formData.Division['DIVISIONNAME']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="实验室">
-              <el-input v-model="formData.name"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="受理人">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="formData.Department['DEPTNAME']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="检验单位">
-              <el-input v-model="formData.name"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="受理日期">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="formData.Division['']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="检测地点">
-              <el-input v-model="formData.name"></el-input>
+              <el-input v-model="formData.Department['LOCATION']"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="受理单号">
+              <el-input></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="受理人">
+              <el-input></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="受理日期">
+              <el-input></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -263,7 +270,10 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="管理体系认证">
-              <el-input v-model="formData.PmProduceUnit['PRO_QUALITY_PASS']"></el-input>
+              <el-radio-group v-model="formData.PmProduceUnit['PRO_QUALITY_PASS']">
+                <el-radio :label="1">通过</el-radio>
+                <el-radio :label="null">未通过</el-radio>
+              </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -324,7 +334,7 @@
         <el-row :gutter="10" v-loading="loading">
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="受理单号">
-              <el-input v-model="formData.PmPlanSubInfo['BILL_CODE']"></el-input>
+              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -349,7 +359,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="检查封样人">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -364,7 +374,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="接样人">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -384,57 +394,57 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="样品到达日期">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="样品数量">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input v-model="formData.PmPlanSubInfo['GOODS_CHECK_NUM']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="其中备样数量">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input v-model="formData.PmPlanSubInfo['GOODS_COPY_NUM']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="备样封存地点">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input v-model="formData.PmPlanSubInfo['GOODS_COPY_LOCAL']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="下达日期">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="样品进货/库存数">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input v-model="formData.PmPlanSubInfo['PRO_JH_KC']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="要求完成日期">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="标注执行标准/技术文件">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input v-model="formData.PmPlanSubInfo['GOODS_STANDARD']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="产品标注等级">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input v-model="formData.PmPlanSubInfo['GOODS_LEVEL']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="明示质量承诺">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="抽样日期">
-              <el-input v-model="formData.PmPlanSubInfo['name']"></el-input>
+              <el-input v-model="formData.PmPlanSubInfo['GOODS_CHECK_TIME']"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -464,7 +474,7 @@ export default {
       loading: false,
       dialogFormVisible: false,
       queryParams: {
-        iCodeNum: '201909042080009',
+        iCodeNum: 'A202003011010009', //201909042080009
       },
       formData: {
         ID: '',
@@ -475,7 +485,10 @@ export default {
         PmExecUintInfo: {},
         PmPlanInfo: {},
         PmPlanSubInfo: {},
-        PmProduceUnit: {}
+        PmProduceUnit: {},
+        SupervisePlanInfo: {},
+        Department: {},
+        Division: {}
       },
       form: {
         iCodeNum: ''
@@ -484,10 +497,17 @@ export default {
         1:'城区',
         2:'城郊结合部',
         3:'乡镇'
+      },
+      samplingAreaOptions: {
+        '1': '现场抽样',
+        '2': '市场买样',
+        '3': '电商买样',
+        '4': '其他来源'
       }
     };
   },
   methods: {
+    // 从省平台同步
     getPmInsPectByCode() {
       this.loading = true;
       getPmInsPectByCode({iCodeNum: this.queryParams.iCodeNum})
@@ -502,11 +522,39 @@ export default {
         })
     },
     // 从省平台同步
-    syncFromPPlatform() {
-      this.dialogFormVisible = true
-    },
-    syncFromPPlatformConfirm() {
-      this.dialogFormVisible = false
+    // syncFromPPlatform() {
+    //   this.dialogFormVisible = true
+    // },
+    // syncFromPPlatformConfirm() {
+    //   this.dialogFormVisible = false
+    // },
+    // 保存
+    onSave() {
+      this.$confirm('保存前请确定信息无误?', '温馨提醒', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              instance.confirmButtonLoading = true;
+              instance.confirmButtonText = '执行中...';
+
+              setTimeout(() => {
+                done();
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false;
+                }, 300);
+              }, 3000);
+            } else {
+              done();
+            }
+          }
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '保存成功!'
+          });
+        })
     }
   },
   mounted() {

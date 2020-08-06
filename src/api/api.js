@@ -327,6 +327,15 @@ export const getPmInsPectByCode = params => {
   return axios.post(`${base}/api/PM_INSPECT/GetPmInsPectByCode?iCodeNum=${params.iCodeNum}`);
 };
 
+// 获取样本详情
+export const inspectAcceptanceController = params => {
+  return axios.post(`${base}/api/PM_INSPECT/InspectAcceptanceController?iCodeNum=${params.iCodeNum}`);
+};
+
+
+
+
+
 // 获取任务表
 export const getPmPlanById = id => {
   return axios.get(`${base}/api/PM_PLAN/Get/${id}`);
