@@ -1,5 +1,5 @@
 module.exports = {
-    title: 'Blog.Admin',
+    title: 'LIMS',
     description: 'Hello, 欢迎使用，一个通用的后台权限管理框架!',
     base : '/.doc/',
     head: [

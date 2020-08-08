@@ -62,17 +62,6 @@ const router = new Router({
             hidden: true
         },
         {
-            path: '/',
-            component: Welcome,
-            name: 'jain',
-            iconCls: 'fa-qq',//图标样式class
-            // hidden: true,
-            meta: {
-                title: '监督抽查业务受理',
-                requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
-            }
-        },
-        {
             path: '/login',
             component: Login,
             name: 'login',

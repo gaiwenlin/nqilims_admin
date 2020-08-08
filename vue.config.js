@@ -51,7 +51,7 @@ module.exports = {
         }
       },
       "/images": {
-        target: "http://localhost:8081",
+        target: "http://139.224.114.174:8081",
         ws: true,
         changeOrigin: true
       },

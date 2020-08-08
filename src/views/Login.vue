@@ -54,7 +54,7 @@
                 logining: false,
                 loginingMock: false,
                 ruleForm2: {
-                    account: 'blogadmin',
+                    account: '',
                     checkPass: ''
                 },
                 account3: '',
@@ -254,7 +254,7 @@
                         getRouter = filterAsyncRouter(getRouter) //过滤路由
                         router.$addRoutes(getRouter) //动态添加路由
 
-                        _this.$router.replace(_this.$route.query.redirect ? _this.$route.query.redirect : "/");
+                        _this.$router.replace(_this.$route.query.redirect ? _this.$route.query.redirect : "/businessAccept/selective");
                     }
                 });
             }

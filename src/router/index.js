@@ -17,6 +17,10 @@ const createRouter = () => new Router({
     base: process.env.BASE_URL,
     routes: [
         {
+            path: '/',
+            redirect: { path: '/businessAccept/selective' }
+        },
+        {
             path: '/404', component: NoPage, name: 'NoPage',
             meta: {
                 title: 'NoPage',
@@ -35,15 +39,21 @@ const createRouter = () => new Router({
             hidden: true
         },
         {
-            path: '/',
-            component: SupervisionCheck,
-            name: 'jian',
-            iconCls: 'fa-qq',//图标样式class
-            // hidden: true,
-            meta: {
-                title: '监督抽查业务受理',
-                requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
-            }
+            path: '/businessAccept',
+            component: Layout,
+            name: '业务受理',
+            iconCls: 'fa-home',//图标样式class
+            children: [
+                {
+                    path: '/businessAccept/selective', 
+                    component: SupervisionCheck, 
+                    name: '监督抽查业务受理',
+                    meta: {
+                        title: '监督抽查业务受理',
+                        requireAuth: true
+                    }
+                }
+            ]
         },
         {
             path: '/login',

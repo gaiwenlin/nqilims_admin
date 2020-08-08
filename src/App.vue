@@ -6,7 +6,7 @@
             <el-row class="container">
                 <el-col :span="24" class="header">
                     <el-col :span="10" class="logo collapsedLogo" :class="collapsed?'logo-collapse-width':'logo-width'">
-                        <div @click="toindex"> {{collapsed?sysNameShort:sysName}}</div>
+                        <div @click="toindex" class="text-center"> {{collapsed?sysNameShort:sysName}}</div>
                     </el-col>
                     <el-col :span="10" class="logoban">
                         <div :class=" collapsed?'tools collapsed':'tools'" @click="collapse">
@@ -16,7 +16,7 @@
                         <el-breadcrumb separator="/" class="breadcrumb-inner collapsedLogo">
                             <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
 
-                                <span style=""> {{ item.name }}</span>
+                                <span style="color: #fff;"> {{ item.name }}</span>
                             </el-breadcrumb-item>
                         </el-breadcrumb>
 
@@ -29,13 +29,13 @@
                         <img src="./assets/logo.png" height="128" width="128"/>
                     </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item @click.native="myNews">
+                                <!-- <el-dropdown-item @click.native="myNews">
                                     <el-badge :value="2" class="item" type="warning">
                                         我的消息
                                     </el-badge>
-                                </el-dropdown-item>
+                                </el-dropdown-item> -->
                                 <el-dropdown-item @click.native="Setting">设置</el-dropdown-item>
-                                <el-dropdown-item @click.native="goGithub">Github</el-dropdown-item>
+                                <!-- <el-dropdown-item @click.native="goGithub">Github</el-dropdown-item> -->
                                 <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
@@ -161,7 +161,7 @@
         mixins: [userAuth],
         data() {
             return {
-                sysName: 'BlogAdmin',
+                sysName: 'LIMS',
                 sysNameShort: 'BA',
                 NewsVisible: false,
                 SidebarVisible: false,

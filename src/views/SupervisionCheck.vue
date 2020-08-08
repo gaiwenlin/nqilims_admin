@@ -3,10 +3,9 @@
     <el-form label-position="right" label-width="160px" :gutter="20" :model="formData">
       <el-card class="mb20" style="position: sticky;top: 0px;background: #fff;z-index: 1999">
         <div class="pl20 pr20 clearfix">
-          <span>样品编号：</span>
-          <el-input class="w400 mr30" placeholder="请输入样品编号" v-model="queryParams.iCodeNum">
-            <el-button :disabled="loading" :loading="loading" slot="append" icon="el-icon-search" @click="getPmInsPectByCode">从省平台同步</el-button>
-          </el-input>
+          <span>抽查批次号：</span>
+          <el-input class="w200 mr10" placeholder="请输入样品编号" v-model="queryParams.iCodeNum"></el-input>
+          <el-button type="primary" :disabled="loading" :loading="loading" icon="el-icon-search" @click="getPmInsPectByCode">从省平台同步</el-button>
           <el-button type="warning" class="fr" @click="onSave">保存</el-button>
           <!-- <el-button type="success" class="fr mr10">新建</el-button> -->
           <!-- <el-button type="primary" class="fr" @click="syncFromPPlatform">从省平台同步</el-button> -->
@@ -89,12 +88,16 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="受理人">
-              <el-input></el-input>
+              <el-input :value="userInfo.uRealName"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="受理日期">
-              <el-input></el-input>
+              <el-date-picker
+                v-model="nowDate"
+                type="date"
+                placeholder="选择日期时间">
+              </el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -319,11 +322,6 @@
               <el-input v-model="formData.PmExecUintInfo['EXEC_FILE_NO']"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="备注">
-              <el-input v-model="formData.PmExecUintInfo['EXEC_REMARK']"></el-input>
-            </el-form-item>
-          </el-col>
         </el-row>
       </el-card>
       <!-- 产品信息 -->
@@ -358,11 +356,6 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="检查封样人">
-              <el-input></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="产品名称">
               <el-input v-model="formData.PmPlanSubInfo['GOODS_NAME']"></el-input>
             </el-form-item>
@@ -370,11 +363,6 @@
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="规格型号">
               <el-input v-model="formData.PmPlanSubInfo['GOODS_SCALE']"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="接样人">
-              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -413,18 +401,8 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="下达日期">
-              <el-input></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="样品进货/库存数">
               <el-input v-model="formData.PmPlanSubInfo['PRO_JH_KC']"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="要求完成日期">
-              <el-input></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -443,8 +421,44 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="要求完成日期">
+              <el-date-picker
+                type="date"
+                placeholder="选择日期时间">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="下达日期">
+              <el-date-picker
+                v-model="nowDate"
+                type="date"
+                placeholder="选择日期时间">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="抽样日期">
-              <el-input v-model="formData.PmPlanSubInfo['GOODS_CHECK_TIME']"></el-input>
+              <el-date-picker
+                v-model="formData.PmPlanSubInfo['GOODS_CHECK_TIME']"
+                type="date"
+                placeholder="选择日期时间">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="接样人">
+              <el-input :value="userInfo.uRealName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="检查封样人">
+              <el-input :value="userInfo.uRealName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="备注">
+              <el-input v-model="formData.PmPlanSubInfo['REMARKS']"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -466,15 +480,15 @@
 </template>
 
 <script>
-import { getPmPlanSubByCode, getPmInsPectByCode, getPmPlanById, getPmCaryById, getPmProductById, getPmExecUintById, getPmEcPlatformById } from "../api/api";
-
+import { getPmInsPectByCode, inspectAcceptance } from "../api/api";
+import date from '../../util/date';
 export default {
   data() {
     return {
       loading: false,
       dialogFormVisible: false,
       queryParams: {
-        iCodeNum: 'A202003011010009', //201909042080009
+        iCodeNum: 'A202003011010009', //201909042080009  A202003011010009
       },
       formData: {
         ID: '',
@@ -505,6 +519,14 @@ export default {
         '4': '其他来源'
       }
     };
+  },
+  computed: {
+    userInfo() {
+      return window.localStorage.getItem('user') && JSON.parse(window.localStorage.getItem('user'));
+    },
+    nowDate() {
+      return date.getNowDate();
+    }
   },
   methods: {
     // 从省平台同步
@@ -538,27 +560,26 @@ export default {
             if (action === 'confirm') {
               instance.confirmButtonLoading = true;
               instance.confirmButtonText = '执行中...';
-
-              setTimeout(() => {
-                done();
-                setTimeout(() => {
+              inspectAcceptance(this.formData)
+                .then(res => {
+                  done();
                   instance.confirmButtonLoading = false;
-                }, 300);
-              }, 3000);
+                  if (res) {
+                    this.$message({
+                      type: 'success',
+                      message: '保存成功!'
+                    });
+                  }
+                })
+                .catch(err => {
+                  instance.confirmButtonLoading = false;
+                })
             } else {
               done();
             }
           }
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '保存成功!'
-          });
         })
     }
-  },
-  mounted() {
-    
   },
 };
 </script>
