@@ -488,7 +488,7 @@ export default {
       loading: false,
       dialogFormVisible: false,
       queryParams: {
-        iCodeNum: 'A202003011010009', //201909042080009  A202003011010009
+        iCodeNum: '', //201909042080009  A202003011010009
       },
       formData: {
         ID: '',
