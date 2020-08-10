@@ -531,6 +531,10 @@ export default {
   methods: {
     // 从省平台同步
     getPmInsPectByCode() {
+      if(!this.queryParams.iCodeNum) {
+        this.$message.warning('请输入抽查批次号')
+        return
+      }
       this.loading = true;
       getPmInsPectByCode({iCodeNum: this.queryParams.iCodeNum})
         .then(res => {
