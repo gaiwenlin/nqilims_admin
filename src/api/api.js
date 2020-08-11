@@ -37,6 +37,13 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
+        if (!response.data.success) {
+            Vue.prototype.$message({
+                message: response.data.msg,
+                type: 'error'
+            });
+            return
+        }
         return response;
     },
     error => {
