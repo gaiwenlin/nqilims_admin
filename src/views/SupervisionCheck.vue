@@ -4,7 +4,7 @@
       <el-card class="mb20" style="position: sticky;top: 0px;background: #fff;z-index: 1999">
         <div class="pl20 pr20 clearfix">
           <span>抽查批次号：</span>
-          <el-input class="w200 mr10" placeholder="请输入样品编号" v-model="queryParams.iCodeNum"></el-input>
+          <el-input class="w200 mr10" placeholder="请输入抽查批次号" v-model="queryParams.iCodeNum"></el-input>
           <el-button type="primary" :disabled="loading" :loading="loading" icon="el-icon-search" @click="getPmInsPectByCode">从省平台同步</el-button>
           <el-button type="warning" class="fr" @click="onSave">保存</el-button>
           <!-- <el-button type="success" class="fr mr10">新建</el-button> -->
@@ -556,6 +556,10 @@ export default {
     // },
     // 保存
     onSave() {
+      if(!this.formData['PLAN_CODE']) {
+        this.$message.warning('未查询到抽查批次号信息，不能保存')
+        return
+      }
       this.$confirm('保存前请确定信息无误?', '温馨提醒', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -576,6 +580,7 @@ export default {
                   }
                 })
                 .catch(err => {
+                  instance.confirmButtonText = '确定';
                   instance.confirmButtonLoading = false;
                 })
             } else {
