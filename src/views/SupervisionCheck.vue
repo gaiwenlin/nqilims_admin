@@ -11,7 +11,7 @@
           <!-- <el-button type="primary" class="fr" @click="syncFromPPlatform">从省平台同步</el-button> -->
         </div>
       </el-card>
-      
+      <!-- 任务信息 -->
       <el-card>
         <div slot="header" class="clearfix">
           <span class="text-bold text-primary"><i class="fa fa-tasks" aria-hidden="true"></i>任务信息</span>
@@ -56,6 +56,7 @@
           </el-col>
         </el-row>
       </el-card>
+      <!-- 主检部门信息 -->
       <el-card class="mt20">
         <div slot="header" class="clearfix">
           <span class="text-bold text-primary"><i class="fa fa-address-book" aria-hidden="true"></i>主检部门信息</span>
@@ -73,7 +74,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="检验单位">
-              <el-input v-model="formData.Division['']"></el-input>
+              <el-input v-model="formData.PmExecUintInfo['EXEC_NAME']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -254,7 +255,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="营业执照">
-              <el-input v-model="formData.PmProduceUnit['PRO_ORGAN_CODE']" placeholder="统一社会信用代码"></el-input>
+              <el-input v-model="formData.PmProduceUnit['PRO_BUS_LICENCE']" placeholder="统一社会信用代码"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -275,8 +276,8 @@
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="管理体系认证">
               <el-radio-group v-model="formData.PmProduceUnit['PRO_QUALITY_PASS']">
-                <el-radio :label="1">通过</el-radio>
-                <el-radio :label="null">未通过</el-radio>
+                <el-radio :label="0">通过</el-radio>
+                <el-radio :label="1">未通过</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -368,7 +369,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="生产日期">
-              <el-input v-model="formData.PmPlanSubInfo['GOODS_PRO_TIME_TEMP']"></el-input>
+              <el-input v-model="formData.PmPlanSubInfo['GOODS_PRO_TIME']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -382,8 +383,8 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="样品到达日期">
-              <el-input></el-input>
+            <el-form-item label="抽样日期">
+              <el-input v-model="formData.PmPlanSubInfo['GOODS_CHECK_TIME']"></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
@@ -426,6 +427,7 @@
               <el-date-picker
                 type="date"
                 style="width: 100%;"
+                v-model="formData.SupervisePlanInfo['REQUESTDATE']"
                 placeholder="选择日期时间">
               </el-date-picker>
             </el-form-item>
@@ -441,10 +443,10 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
-            <el-form-item label="抽样日期">
+            <el-form-item label="样品到达日期">
               <el-date-picker
                 style="width: 100%;"
-                v-model="formData.PmPlanSubInfo['GOODS_CHECK_TIME']"
+                v-model="nowDate"
                 type="date"
                 placeholder="选择日期时间">
               </el-date-picker>
