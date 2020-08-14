@@ -336,7 +336,7 @@ export const getPmInsPectByCode = params => {
 
 // 同步保存
 export const inspectAcceptance = data => {
-  return axios.post(`${base}/api//InspectAcceptance`, data);
+  return axios.post(`${base}/api/InspectAcceptance`, data);
 };
 
 // 获取任务表

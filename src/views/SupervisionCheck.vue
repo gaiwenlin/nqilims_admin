@@ -44,7 +44,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="抽样领域">
-              <el-select v-model="formData.PmPlanSubInfo['CHECK_TYPE']" placeholder="请选择">
+              <el-select style="width: 100%;" v-model="formData.PmPlanSubInfo['CHECK_TYPE']" placeholder="请选择">
                 <el-option
                   v-for="(value, key) in samplingAreaOptions"
                   :key="key"
@@ -96,6 +96,7 @@
               <el-date-picker
                 v-model="nowDate"
                 type="date"
+                style="width: 100%;"
                 placeholder="选择日期时间">
               </el-date-picker>
             </el-form-item>
@@ -424,6 +425,7 @@
             <el-form-item label="要求完成日期">
               <el-date-picker
                 type="date"
+                style="width: 100%;"
                 placeholder="选择日期时间">
               </el-date-picker>
             </el-form-item>
@@ -433,6 +435,7 @@
               <el-date-picker
                 v-model="nowDate"
                 type="date"
+                style="width: 100%;"
                 placeholder="选择日期时间">
               </el-date-picker>
             </el-form-item>
@@ -440,6 +443,7 @@
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="抽样日期">
               <el-date-picker
+                style="width: 100%;"
                 v-model="formData.PmPlanSubInfo['GOODS_CHECK_TIME']"
                 type="date"
                 placeholder="选择日期时间">
@@ -457,8 +461,13 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+            <el-form-item label="抽样人">
+              <el-input v-model="formData.Check_Person"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
             <el-form-item label="备注">
-              <el-input v-model="formData.PmPlanSubInfo['REMARKS']"></el-input>
+              <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 6}" v-model="formData.PmPlanSubInfo['REMARKS']"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -494,6 +503,7 @@ export default {
         ID: '',
         LOT_NUM: '',
         PLAN_CODE: '',
+        Check_Person: "",
         PmCaryInfo: {},
         PmEcPlatFormInfo: {},
         PmExecUintInfo: {},
